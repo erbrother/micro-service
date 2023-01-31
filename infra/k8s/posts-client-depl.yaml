@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-client
+  template:
+    metadata:
+      labels:
+        app: post-client
+    spec:
+      containers:
+        - name: post-client
+          image: shaoxuanzhang/post-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-client-serv
+spec:
+  selector:
+    app: post-client
+  ports:
+    - name: post-client
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
